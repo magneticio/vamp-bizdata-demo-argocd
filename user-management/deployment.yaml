@@ -34,3 +34,18 @@ spec:
         - name: http-metrics
           containerPort: 9496
           protocol: TCP
+        - name: http
+          containerPort: 5000
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+             path: /healthz
+             port: http
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+             path: /healthz
+             port: http
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
