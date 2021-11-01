@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-management
+spec:
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: user-management
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9464"
+      labels:
+        app: user-management
+    spec:
+      containers:
+      - name: user-management
+        image: vampio/vamp-bizdata-demo-user-management:0.1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: grpc
+          containerPort: 50051
+          protocol: TCP
+        - name: http-metrics
+          containerPort: 9496
+          protocol: TCP
