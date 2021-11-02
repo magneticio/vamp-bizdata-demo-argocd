@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: appointment
+  labels:
+    app: appointment
+    version: 0.1.2
 spec:
   revisionHistoryLimit: 2
   strategy:
@@ -11,6 +14,7 @@ spec:
   selector:
     matchLabels:
       app: appointment
+      version: 0.1.2
   template:
     metadata:
       annotations:
@@ -18,6 +22,7 @@ spec:
         prometheus.io/port: "9464"
       labels:
         app: appointment
+        version: 0.1.2
     spec:
       containers:
       - name: appointment
