@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: bff
+  labels:
+    app: bff
+    version: 0.1.0  
 spec:
   revisionHistoryLimit: 2
   strategy:
@@ -11,6 +14,7 @@ spec:
   selector:
     matchLabels:
       app: bff
+      version: 0.1.0
   template:
     metadata:
       annotations:
@@ -18,6 +22,7 @@ spec:
         prometheus.io/port: "9464"
       labels:
         app: bff
+        version: 0.1.0
     spec:
       containers:
       - name: bff
