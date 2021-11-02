@@ -6,7 +6,7 @@ metadata:
   name: appointment
 spec:
   ports:
-  - name: grpc
+  - name: http
     port: 5000
     protocol: TCP
     targetPort: 5000
