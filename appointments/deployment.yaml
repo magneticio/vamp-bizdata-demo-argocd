@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: appointment
-        image: vampio/vamp-bizdata-demo-appointment:0.1.1
+        image: vampio/vamp-bizdata-demo-appointment:0.1.2
         imagePullPolicy: IfNotPresent
         env:
         - name: DB_URI
