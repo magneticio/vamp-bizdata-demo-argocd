@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appointment
+spec:
+  revisionHistoryLimit: 2
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: appointment
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9464"
+      labels:
+        app: appointment
+    spec:
+      containers:
+      - name: appointment
+        image: vampio/vamp-bizdata-demo-appointment:0.1.0
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: DB_URI
+          value: mongodb://mongodb:27017/
+        - name: DB_NAME
+          value: vamp-bizdata-demo-app-appointment
+        ports:
+        - name: http
+          containerPort: 5000
+          protocol: TCP
+        - name: http-metrics
+          containerPort: 9496
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+             path: /healthz
+             port: http
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+             path: /healthz
+             port: http
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
