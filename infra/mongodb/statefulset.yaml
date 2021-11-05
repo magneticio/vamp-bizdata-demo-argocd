@@ -50,4 +50,4 @@ spec:
       volumes:
         - name: mongo-data
           persistentVolumeClaim:
-            claimName: mongo-data-claim
+            claimName: mongodb-data-claim
