@@ -48,6 +48,6 @@ spec:
           - name: mongodb-data
             mountPath: /data/db
       volumes:
-        - name: mongo-data
+        - name: mongodb-data
           persistentVolumeClaim:
             claimName: mongodb-data-claim
