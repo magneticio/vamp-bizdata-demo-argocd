@@ -44,3 +44,10 @@ spec:
           timeoutSeconds: 5
           successThreshold: 1
           failureThreshold: 6
+        volumeMounts:
+          - name: mongodb-data
+            mountPath: /data/db
+      volumes:
+        - name: mongo-data
+          persistentVolumeClaim:
+            claimName: mongo-data-claim
