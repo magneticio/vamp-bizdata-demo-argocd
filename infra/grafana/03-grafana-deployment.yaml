@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: grafana
-          image: grafana/grafana:5.0.4
+          image: grafana/grafana:8.2.3
           imagePullPolicy: Always
           env:
             - name: GF_SECURITY_ADMIN_USER
