@@ -26,6 +26,7 @@ jobs:
       - run:
           name: Delete Deployment
           command: |
+            ls
             version="<< pipeline.parameters.version >>"
             echo "deployment-${version//./-}.yaml"
             git rm "cci-test/deployment-${version//./-}.yaml"
