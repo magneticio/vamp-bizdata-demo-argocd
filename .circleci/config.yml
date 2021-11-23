@@ -31,7 +31,9 @@ jobs:
             git rm "cci-test/deployment-${version//./-}.yaml"
             git config --global user.email "bot@circleci.com"
             git config --global user.name $VAMP_CI_USER
+            git config --list
             git commit -a -m "Deleted deployment v$version"
+            git diff
             git push origin master
 
 workflows:
