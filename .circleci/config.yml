@@ -26,10 +26,10 @@ jobs:
       - run:
           name: Delete Deployment
           command: |
-            ls
             version="<< pipeline.parameters.version >>"
             echo "deployment-${version//./-}.yaml"
             git rm "cci-test/deployment-${version//./-}.yaml"
+            ls cci-test/
             git config --global user.email "bot@circleci.com"
             git config --global user.name $VAMP_CI_USER
             git config --list
