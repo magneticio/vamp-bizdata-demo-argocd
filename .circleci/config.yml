@@ -33,6 +33,15 @@ jobs:
             git config --global user.name $VAMP_CI_USER
             git commit -a -m "Deleted deployment v$version"
             git push origin main
+  no-op:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: Nothing to do
+          command: |
+            echo "Nothing to do (other than keep the build green)"
+
 
 workflows:
   version: 2
@@ -41,3 +50,8 @@ workflows:
     jobs:
       - delete-deployment:
           context: vamp-build-context
+  noop:
+    when:
+      not: << pipeline.parameters.delete >>
+    jobs:
+      - no-op
