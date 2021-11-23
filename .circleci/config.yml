@@ -26,11 +26,12 @@ jobs:
       - run:
           name: Delete Deployment
           command: |
-            echo "deployment-${<< pipeline.parameters.version >>//./-}.yaml"
-            git rm "cci-test/deployment-${<< pipeline.parameters.version >>//./-}.yaml"
+            version="<< pipeline.parameters.version >>"
+            echo "deployment-${version//./-}.yaml"
+            git rm "cci-test/deployment-${version//./-}.yaml"
             git config --global user.email "bot@circleci.com"
             git config --global user.name $VAMP_CI_USER
-            git commit -a -m "Deleted deployment v<< pipeline.parameters.version >>"
+            git commit -a -m "Deleted deployment v$version"
             git push origin master
 
 workflows:
