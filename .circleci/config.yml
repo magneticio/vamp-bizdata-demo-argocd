@@ -7,9 +7,9 @@ parameters:
   version:
     type: string
     default: ""
-  kubernetes_cluster:
+  service_name:
     type: string
-    default: dev-orbtest-gs
+    default: ""
   kubernetes_namespace:
     type: string
     default: production
@@ -27,8 +27,9 @@ jobs:
           name: Delete Deployment
           command: |
             version="<< pipeline.parameters.version >>"
-            echo "Delete deployment-${version//./-}.yaml"
-            git rm "cci-test/deployment-${version//./-}.yaml"
+            service="<< pipeline.parameters.service_name >>"
+            echo "Delete $service/deployment-${version//./-}.yaml"
+            git rm "$service/deployment-${version//./-}.yaml"
             git config --global user.email "bot@circleci.com"
             git config --global user.name $VAMP_CI_USER
             git commit -a -m "Deleted deployment v$version"
