@@ -1,0 +1,41 @@
+version: 2.1
+
+parameters:
+  delete:
+    type: boolean
+    default: false
+  version:
+    type: string
+    default: ""
+  kubernetes_cluster:
+    type: string
+    default: dev-orbtest-gs
+  kubernetes_namespace:
+    type: string
+    default: production
+
+jobs:
+  delete-deployment:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "f8:ff:35:9e:79:90:62:3b:38:fa:80:54:d7:8d:85:6a"
+      - checkout
+      - run:
+          name: Delete Deployment
+          command: |
+            echo "deployment-${<< pipeline.parameters.version >>//./-}.yaml"
+            git rm "cci-test/deployment-${<< pipeline.parameters.version >>//./-}.yaml"
+            git config --global user.email "bot@circleci.com"
+            git config --global user.name $VAMP_CI_USER
+            git commit -a -m "Deleted deployment v<< pipeline.parameters.version >>"
+            git push origin master
+
+workflows:
+  version: 2
+  delete:
+    when: << pipeline.parameters.delete >>
+    jobs:
+      - delete-deployment
