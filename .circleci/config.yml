@@ -48,4 +48,5 @@ workflows:
   delete:
     when: << pipeline.parameters.delete >>
     jobs:
+      context: vamp-build-context
       - delete-deployment
