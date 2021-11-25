@@ -4508,9 +4508,9 @@ data:
     ;default_theme = dark
 
     [auth.anonymous]
-    ;enabled = true
-    ;org_name = Main Org.
-    ;org_role = Viewer
+    enabled = true
+    org_name = Main Org.
+    org_role = Viewer
 
     [auth.proxy]
     ;enabled = false
