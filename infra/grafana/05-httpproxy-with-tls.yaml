@@ -1,0 +1,38 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: grafana
+  namespace: projectcontour-monitoring
+spec:
+  virtualhost:
+    fqdn: grafana.bizdata-demo.vamp-dev.cloud
+    tls:
+      secretName: grafana-tls
+  tcpproxy:
+    services:
+    - name: grafana
+      port: 80
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: grafana
+  namespace: projectcontour-monitoring
+  labels:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    kubernetes.io/tls-acme: "true"
+spec:
+  rules:
+  - host: grafana.bizdata-demo.vamp-dev.cloud
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: grafana
+            servicePort: 80
+  tls:
+  - hosts:
+    - grafana.bizdata-demo.vamp-dev.cloud
+    secretName: grafana-tls
