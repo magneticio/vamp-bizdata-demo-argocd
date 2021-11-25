@@ -51,8 +51,8 @@ jobs:
       - run:
           name: Rollback
           command: |
-            ROLLBACK_ID="$(argocd app history test --server "$ARGOCD_SERVER" --auth-token "$ARGOCD_TOKEN"  -o id | sed -n -e '${x;1!p;};h')"
-            argocd app rollback test --server "$ARGOCD_SERVER" --auth-token "$ARGOCD_TOKEN" "$ROLLBACK_ID"
+            ROLLBACK_ID="$(./argocd app history test --server "$ARGOCD_SERVER" --auth-token "$ARGOCD_TOKEN"  -o id | sed -n -e '${x;1!p;};h')"
+            ./argocd app rollback test --server "$ARGOCD_SERVER" --auth-token "$ARGOCD_TOKEN" "$ROLLBACK_ID"
 
   no-op:
     docker:
