@@ -4,7 +4,7 @@ parameters:
   delete:
     type: boolean
     default: false
-  argocd_rollback_by_id:
+  argocd_rollback:
     type: boolean
     default: false
   version:
@@ -38,7 +38,7 @@ jobs:
             git commit -a -m "Deleted deployment v$version"
             git push origin main
             
-  argocd-rollback-by-id:
+  argocd-rollback-to-previous:
     docker:
       - image: cimg/base:stable
     steps:
@@ -51,8 +51,7 @@ jobs:
       - run:
           name: Rollback
           command: |
-            ROLLBACK_ID="$(./argocd app history test --server "$ARGOCD_SERVER" --auth-token "$ARGOCD_TOKEN"  -o id | sed -n -e '${x;1!p;};h')"
-            ./argocd app rollback test --server "$ARGOCD_SERVER" --auth-token "$ARGOCD_TOKEN" "$ROLLBACK_ID"
+            ./argocd app rollback test --server "$ARGOCD_SERVER" --auth-token "$ARGOCD_TOKEN"
 
   no-op:
     docker:
