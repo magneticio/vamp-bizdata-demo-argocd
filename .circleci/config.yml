@@ -51,7 +51,8 @@ jobs:
       - run:
           name: Rollback
           command: |
-            ./argocd app rollback test --server "$ARGOCD_SERVER" --auth-token "$ARGOCD_TOKEN"
+            service="<< pipeline.parameters.service_name >>"
+            ./argocd app rollback $service --server "$ARGOCD_SERVER" --auth-token "$ARGOCD_TOKEN"
 
   no-op:
     docker:
@@ -70,8 +71,15 @@ workflows:
     jobs:
       - delete-deployment:
           context: vamp-build-context
+          
+  argocd-rollback:
+    when: << pipeline.parameters.argocd_rollback >>
+    jobs:
+      - argocd-rollback-to-previous
+  
   noop:
     when:
       not: << pipeline.parameters.delete >>
+      not: << pipeline.parameters.argocd_rollback >>
     jobs:
-      - argocd-rollback-to-previous
+      - no-op
