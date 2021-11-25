@@ -4500,15 +4500,15 @@ data:
     ;external_snapshot_name = Publish to snapshot.raintank.io
 
     [users]
-    ;allow_sign_up = true
-    ;allow_org_create = true
+    ;allow_sign_up = false
+    ;allow_org_create = false
     ;auto_assign_org = true
     ;auto_assign_org_role = Viewer
     ;login_hint = email or username
     ;default_theme = dark
 
     [auth.anonymous]
-    ;enabled = false
+    ;enabled = true
     ;org_name = Main Org.
     ;org_role = Viewer
 
