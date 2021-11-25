@@ -414,7 +414,6 @@ data:
       "fiscalYearStartMonth": 0,
       "gnetId": null,
       "graphTooltip": 0,
-      "id": 6,
       "links": [],
       "liveNow": false,
       "panels": [
@@ -501,6 +500,7 @@ data:
               "mode": "single"
             }
           },
+          "pluginVersion": "8.2.3",
           "targets": [
             {
               "exemplar": true,
@@ -512,6 +512,122 @@ data:
           ],
           "title": "Total Requests",
           "type": "timeseries"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 1
+          },
+          "id": 15,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "text": {}
+          },
+          "pluginVersion": "8.2.3",
+          "targets": [
+            {
+              "exemplar": true,
+              "expr": "sum(rate(api_req_total{app=\"bff\"}[15m])) * 3600",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Requests/Hour",
+          "type": "gauge"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 1
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 1
+          },
+          "id": 16,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.2.3",
+          "targets": [
+            {
+              "exemplar": true,
+              "expr": "svc_appointments_conn_err{app=\"bff\"}",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Errors Connecting to Appointment Service",
+          "type": "stat"
         },
         {
           "collapsed": false,
@@ -596,6 +712,7 @@ data:
               "mode": "single"
             }
           },
+          "pluginVersion": "8.2.3",
           "targets": [
             {
               "exemplar": true,
@@ -613,35 +730,7 @@ data:
           "fieldConfig": {
             "defaults": {
               "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
+                "mode": "thresholds"
               },
               "mappings": [],
               "thresholds": {
@@ -668,26 +757,30 @@ data:
           },
           "id": 14,
           "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "hidden",
-              "placement": "bottom"
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
             },
-            "tooltip": {
-              "mode": "single"
-            }
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "text": {}
           },
+          "pluginVersion": "8.2.3",
           "targets": [
             {
               "exemplar": true,
-              "expr": "api_req_total{app=\"user-management\"}",
+              "expr": "sum(rate(api_req_total{app=\"user-management\"}[15m])) * 3600",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "title": "Total Requests",
-          "type": "timeseries"
+          "title": "Requests/Hour",
+          "type": "gauge"
         },
         {
           "datasource": null,
@@ -758,6 +851,7 @@ data:
               "mode": "single"
             }
           },
+          "pluginVersion": "8.2.3",
           "targets": [
             {
               "exemplar": true,
@@ -836,7 +930,7 @@ data:
           },
           "gridPos": {
             "h": 8,
-            "w": 8,
+            "w": 6,
             "x": 0,
             "y": 19
           },
@@ -868,6 +962,63 @@ data:
           "fieldConfig": {
             "defaults": {
               "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 6,
+            "y": 19
+          },
+          "id": 17,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "text": {}
+          },
+          "pluginVersion": "8.2.3",
+          "targets": [
+            {
+              "exemplar": true,
+              "expr": "sum(rate(api_req_total{app=\"appointment\"}[15m])) * 3600",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Requests/Hour",
+          "type": "gauge"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
                 "mode": "palette-classic"
               },
               "custom": {
@@ -917,11 +1068,11 @@ data:
           },
           "gridPos": {
             "h": 8,
-            "w": 8,
-            "x": 8,
+            "w": 6,
+            "x": 12,
             "y": 19
           },
-          "id": 3,
+          "id": 4,
           "options": {
             "legend": {
               "calcs": [],
@@ -935,13 +1086,13 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "api_appointments_booked",
+              "expr": "api_appointments_attended",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "title": "Book Appointment",
+          "title": "Attend Appointment",
           "type": "timeseries"
         },
         {
@@ -998,11 +1149,11 @@ data:
           },
           "gridPos": {
             "h": 8,
-            "w": 8,
-            "x": 16,
+            "w": 6,
+            "x": 18,
             "y": 19
           },
-          "id": 4,
+          "id": 3,
           "options": {
             "legend": {
               "calcs": [],
@@ -1016,13 +1167,13 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "api_appointments_attended",
+              "expr": "api_appointments_booked",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "title": "Attend Appointment",
+          "title": "Book Appointment",
           "type": "timeseries"
         }
       ],
@@ -1040,7 +1191,7 @@ data:
       "timezone": "",
       "title": "Demo API Metrics",
       "uid": "W96Oi9F7k",
-      "version": 9
+      "version": 1
     }
   contour-proxy.json: |
     {
