@@ -51,7 +51,7 @@ jobs:
       - run:
           name: Rollback
           command: |
-            ./argocd app history test --auth-token "$ARGOCD_TOKEN"
+            ./argocd app history test --server "$ARGOCD_SERVER" --auth-token "$ARGOCD_TOKEN"
 
   no-op:
     docker:
