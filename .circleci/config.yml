@@ -79,7 +79,8 @@ workflows:
   
   noop:
     when:
-      not: << pipeline.parameters.delete >>
-      not: << pipeline.parameters.argocd_rollback >>
+      and:
+      - not: << pipeline.parameters.delete >>
+      - not: << pipeline.parameters.argocd_rollback >>
     jobs:
       - no-op
