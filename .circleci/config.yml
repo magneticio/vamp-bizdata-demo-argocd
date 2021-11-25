@@ -4,6 +4,9 @@ parameters:
   delete:
     type: boolean
     default: false
+  argocd_rollback_by_id:
+    type: boolean
+    default: false
   version:
     type: string
     default: ""
@@ -34,6 +37,22 @@ jobs:
             git config --global user.name $VAMP_CI_USER
             git commit -a -m "Deleted deployment v$version"
             git push origin main
+            
+  argocd-rollback-by-id:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: Install ArgoCD CLI
+          command: |
+            VERSION=v2.1.7
+            curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/download/$VERSION/argocd-linux-amd64
+            chmod +x /usr/local/bin/argocd
+      - run:
+          name: Rollback
+          command: |
+            argocd app history test --auth-token "$ARGOCD_TOKEN"
+
   no-op:
     docker:
       - image: cimg/base:stable
@@ -55,4 +74,4 @@ workflows:
     when:
       not: << pipeline.parameters.delete >>
     jobs:
-      - no-op
+      - argocd-rollback-by-id
