@@ -53,6 +53,22 @@ jobs:
           command: |
             service="<< pipeline.parameters.service_name >>"
             ./argocd app rollback $service --server "$ARGOCD_SERVER" --auth-token "$ARGOCD_TOKEN"
+            
+  argocd-sync:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: Install ArgoCD CLI
+          command: |
+            VERSION=v2.1.7
+            curl -sSL -o ./argocd https://github.com/argoproj/argo-cd/releases/download/$VERSION/argocd-linux-amd64
+            chmod +x ./argocd
+      - run:
+          name: Sync
+          command: |
+            service="<< pipeline.parameters.service_name >>"
+            ./argocd app sync $service --server "$ARGOCD_SERVER" --auth-token "$ARGOCD_TOKEN" --prune
 
   no-op:
     docker:
@@ -71,6 +87,7 @@ workflows:
     jobs:
       - delete-deployment:
           context: vamp-build-context
+      - argocd-sync
           
   argocd-rollback:
     when: << pipeline.parameters.argocd_rollback >>
