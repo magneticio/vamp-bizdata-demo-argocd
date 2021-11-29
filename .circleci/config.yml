@@ -88,6 +88,8 @@ workflows:
       - delete-deployment:
           context: vamp-build-context
       - argocd-sync
+          requires:
+            - delete-deployment
           
   argocd-rollback:
     when: << pipeline.parameters.argocd_rollback >>
