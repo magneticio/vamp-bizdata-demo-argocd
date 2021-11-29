@@ -87,7 +87,7 @@ workflows:
     jobs:
       - delete-deployment:
           context: vamp-build-context
-      - argocd-sync
+      - argocd-sync:
           requires:
             - delete-deployment
           
