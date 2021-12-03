@@ -504,13 +504,13 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "api_req_total{app=\"bff\"}",
+              "expr": "sum(rate(api_req_total{app=\"bff\"}[1m]))",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "title": "Total Requests",
+          "title": "Total RPS",
           "type": "timeseries"
         },
         {
@@ -716,13 +716,13 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "api_req_total{app=\"user-management\"}",
+              "expr": "sum(rate(api_req_total{app=\"user-management\"}[1m]))",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "title": "Total Requests",
+          "title": "Total RPS",
           "type": "timeseries"
         },
         {
@@ -948,13 +948,13 @@ data:
           "targets": [
             {
               "exemplar": true,
-              "expr": "api_req_total{app=\"appointment\"}",
+              "expr": "sum(rate(api_req_total{app=\"appointment\"}[1m]))",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "title": "Total Requests",
+          "title": "Total RPS",
           "type": "timeseries"
         },
         {
@@ -1184,7 +1184,7 @@ data:
         "list": []
       },
       "time": {
-        "from": "now-6h",
+        "from": "now-1h",
         "to": "now"
       },
       "timepicker": {},
